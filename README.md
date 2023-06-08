@@ -223,6 +223,7 @@ This repo contains a top-level `default.nix` that returns the library helper fun
 * shellcheck
 * shfmt
 * statix
+* sort
 * stylish-haskell
 * stylua
 * swift-format
