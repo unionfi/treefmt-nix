@@ -12,9 +12,21 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = let
+    # This sort is consistent across machines because we set the locale.
+    sort = pkgs.symlinkJoin {
+      name = "sort";
+      paths = [ cfg.package ];
+      buildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/sort \
+          --set LC_ALL C \
+          --set LC_COLLATE C
+      '';
+    };
+  in lib.mkIf cfg.enable {
     settings.formatter.sort = {
-      command = "${cfg.package}/bin/sort";
+      command = "${sort}/bin/sort";
       options = [ "-uo" "${cfg.file}" "${cfg.file}" ];
       includes = [ cfg.file ];
     };
