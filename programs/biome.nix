@@ -34,7 +34,7 @@ in
     config-path = l.mkOption {
       description = "The path to the Biome configuration file.";
       type = t.str;
-      example = "/path/to/biome.json";
+      example = "/path/to/config/directory";
       default = "";
     };
 
