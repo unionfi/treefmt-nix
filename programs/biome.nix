@@ -33,9 +33,8 @@ in
     package = l.mkPackageOption p "biome" { };
     config-path = l.mkOption {
       description = "The path to the Biome configuration file.";
-      type = t.str;
-      example = "/path/to/config/directory";
-      default = "";
+      type = types.path;
+      example = "/path/to/biome.json";
     };
 
     settings =
