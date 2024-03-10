@@ -36,7 +36,7 @@ in
     package = l.mkPackageOption p "biome" { };
     config-path = l.mkOption {
       description = "The path to the Biome configuration file.";
-      type = types.path;
+      type = t.path;
       example = "/path/to/biome.json";
     };
 
@@ -339,7 +339,7 @@ in
         ++ l.optionals (settings != { }) [
           # NOTE(@huwaireb): Biome does not accept a direct path to a file for config-path, only a directory.
           "--config-path"
-          pkgs.linkFarm "biome-config" [{ name = "biome.json"; path = config-path; }]
+          pkgs.linkFarm "biome-config" [{ name = "biome.json"; path = cfg.config-path; }]
         ];
     };
   };
