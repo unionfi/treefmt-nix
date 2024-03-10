@@ -31,6 +31,12 @@ in
   options.programs.biome = {
     enable = l.mkEnableOption "biome";
     package = l.mkPackageOption p "biome" { };
+    config-path = l.mkOption {
+      description = "The path to the Biome configuration file.";
+      type = t.str;
+      example = "/path/to/biome.json";
+      default = "";
+    };
 
     settings =
       let
@@ -331,11 +337,7 @@ in
         ++ l.optionals (settings != { }) [
           # NOTE(@huwaireb): Biome does not accept a direct path to a file for config-path, only a directory.
           "--config-path"
-          (
-            l.toString
-              (p.writeTextDir "biome.json"
-                (l.toJSON settings))
-          )
+          pkgs.linkFarm "biome-config" [{ name = "biome.json"; path = config-path; }]
         ];
     };
   };
