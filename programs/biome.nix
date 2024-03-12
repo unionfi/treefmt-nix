@@ -331,15 +331,12 @@ in
             in
             filterEmpty (filterDefaults cfg.settings);
         in
-        [
+        pkgs.lib.throwIf (settings != { }) "use config-file instead of settings" [
           "format"
           "--write"
           "--no-errors-on-unmatched"
-        ]
-        ++ l.optionals (settings != { }) [
-          # NOTE(@huwaireb): Biome does not accept a direct path to a file for config-path, only a directory.
           "--config-path"
-          pkgs.linkFarm "biome-config" [{ name = "biome.json"; path = cfg.config-path; }]
+          (pkgs.linkFarm "biome-config" [{ name = "biome.json"; path = cfg.config-path; }])
         ];
     };
   };
