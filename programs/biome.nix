@@ -336,7 +336,7 @@ in
           "--write"
           "--no-errors-on-unmatched"
           "--config-path"
-          (pkgs.linkFarm "biome-config" [{ name = "biome.json"; path = cfg.config-path; }])
+          (toString (pkgs.linkFarm "biome-config" [{ name = "biome.json"; path = cfg.config-path; }]))
         ];
     };
   };
