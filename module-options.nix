@@ -29,6 +29,12 @@ let
         default = [ ];
         example = [ "./node_modules/**" ];
       };
+      hidden = mkOption {
+        description = "Whether to include hidden files and directories when formatting. Do note that this will include .git, so it is recommended that you exclude that directory if enabling this.";
+        type = types.bool;
+        default = false;
+        example = false;
+      };
     };
 
     formatter = mkOption {
@@ -121,7 +127,7 @@ in
                 done
               }
               tree_root=$(find_up "${config.projectRootFile}")
-              exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} "$@" --tree-root "$tree_root"
+              exec ${config.package}/bin/treefmt --config-file ${config.build.configFile} ${if config.settings.global.hidden then "--hidden" else ""} "$@" --tree-root "$tree_root"
             '';
           in
           (x // { meta = config.package.meta // x.meta; });
