@@ -33,7 +33,11 @@ in
     settings.formatter.yamlfmt = {
       inherit (cfg) includes excludes;
       command = cfg.package;
-      options = if cfg.config != null then [ "-conf" "${pkgs.writeTextFile "yamlfmt.yaml" (builtins.toJSON { formatter = cfg.config; })}" ] else { };
+      options = [ "-no_global_conf" ] ++ (
+        if cfg.config != null
+        then [ "-conf" "${pkgs.writeTextFile "yamlfmt.yaml" (builtins.toJSON { formatter = cfg.config; })}" ]
+        else { }
+      );
     };
   };
 }
