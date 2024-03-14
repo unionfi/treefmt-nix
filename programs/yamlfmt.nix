@@ -25,7 +25,7 @@ in
       description = "Config for yamlfmt. Will be passed verbatim to `yamlfmt -conf`.";
       type = lib.types.nullOr lib.types.attrs;
       example = { retain_line_breaks = true; };
-      default = [ ];
+      default = null;
     };
   };
 
