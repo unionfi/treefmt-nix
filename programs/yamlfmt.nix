@@ -20,12 +20,20 @@ in
       example = [ "**/vendor/**" ];
       default = [ ];
     };
+
+    config = lib.mkOption {
+      description = "Config for yamlfmt. Will be passed verbatim to `yamlfmt -conf`.";
+      type = lib.types.nullOr lib.types.attrs;
+      example = { retain_line_breaks = true; };
+      default = [ ];
+    };
   };
 
   config = lib.mkIf cfg.enable {
     settings.formatter.yamlfmt = {
       inherit (cfg) includes excludes;
       command = cfg.package;
+      options = if cfg.config != null then [ "-conf" "${pkgs.writeTextFile "yamlfmt.yaml" (builtins.toJSON { formatter = cfg.config; })}" ] else { };
     };
   };
 }
