@@ -304,4 +304,4 @@ work with Open Source projects: <https://numtide.com/contact>
 
 ## License
 
-All the code and documentation is licensed with the MIT license.
+All the code and documentation is licensed with the [MIT license](https://github.com/unionlabs/treefmt-nix/blob/main/LICENSE.md).
